@@ -1,6 +1,7 @@
 package mrw007.springframework.spring5recipeapp.models;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Recipe {
@@ -17,9 +18,11 @@ public class Recipe {
     private String directions;
     // todo add
     // private Difficulty difficulty;
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Ingredient> ingredients;
     @Lob
     private Byte[] image;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "recipe")
     private Notes notes;
 
     public Long getId() {

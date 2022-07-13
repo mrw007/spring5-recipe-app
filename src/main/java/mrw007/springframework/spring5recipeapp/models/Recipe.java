@@ -1,5 +1,7 @@
 package mrw007.springframework.spring5recipeapp.models;
 
+import mrw007.springframework.spring5recipeapp.enums.Difficulty;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -16,13 +18,13 @@ public class Recipe {
     private String source;
     private String url;
     private String directions;
-    // todo add
-    // private Difficulty difficulty;
+    @Enumerated(value = EnumType.STRING)
+    private Difficulty difficulty;
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Ingredient> ingredients;
     @Lob
     private Byte[] image;
-    @OneToOne(cascade = CascadeType.ALL,mappedBy = "recipe")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "recipe")
     private Notes notes;
 
     public Long getId() {
@@ -111,5 +113,13 @@ public class Recipe {
 
     public void setNotes(Notes notes) {
         this.notes = notes;
+    }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
     }
 }

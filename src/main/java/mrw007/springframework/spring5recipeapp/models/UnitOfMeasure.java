@@ -3,7 +3,7 @@ package mrw007.springframework.spring5recipeapp.models;
 import javax.persistence.*;
 
 @Entity
-public class UnitOfMesasure {
+public class UnitOfMeasure {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

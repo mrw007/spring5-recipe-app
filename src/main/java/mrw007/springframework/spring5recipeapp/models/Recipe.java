@@ -1,12 +1,15 @@
 package mrw007.springframework.spring5recipeapp.models;
 
-import lombok.Data;
+import lombok.*;
 import mrw007.springframework.spring5recipeapp.enums.Difficulty;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Recipe {
 

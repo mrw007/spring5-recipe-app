@@ -5,8 +5,10 @@ import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Data
-@EqualsAndHashCode(exclude = {"recipe"})
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Ingredient {
 
@@ -20,9 +22,6 @@ public class Ingredient {
     private UnitOfMeasure uom;
     @ManyToOne
     private Recipe recipe;
-
-    public Ingredient() {
-    }
 
     public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom) {
         this.description = description;

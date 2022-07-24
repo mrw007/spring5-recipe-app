@@ -1,5 +1,6 @@
 package mrw007.springframework.spring5recipeapp.services;
 
+import mrw007.springframework.spring5recipeapp.commands.RecipeCommand;
 import mrw007.springframework.spring5recipeapp.models.Recipe;
 
 import java.util.Optional;
@@ -10,4 +11,5 @@ public interface RecipeService {
     Set<Recipe> getRecipes();
 
     Recipe findById(Long id);
+    RecipeCommand saveRecipeCommand(RecipeCommand command);
 }

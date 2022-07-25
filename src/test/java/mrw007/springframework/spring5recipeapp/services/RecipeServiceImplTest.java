@@ -1,5 +1,6 @@
 package mrw007.springframework.spring5recipeapp.services;
 
+import mrw007.springframework.spring5recipeapp.commands.RecipeCommand;
 import mrw007.springframework.spring5recipeapp.converters.RecipeCommandToRecipe;
 import mrw007.springframework.spring5recipeapp.converters.RecipeToRecipeCommand;
 import mrw007.springframework.spring5recipeapp.models.Recipe;
@@ -60,5 +61,39 @@ class RecipeServiceImplTest {
         assertNotNull(recipeReturned);
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, never()).findAll();
+    }
+
+    @Test
+    void getRecipeCommandByIdTest() {
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+        Optional<Recipe> recipeOptional = Optional.of(recipe);
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        RecipeCommand recipeCommand = new RecipeCommand();
+        recipeCommand.setId(1L);
+
+        when(recipeToRecipeCommand.convert(any())).thenReturn(recipeCommand);
+
+        RecipeCommand commandById = recipeService.findCommandById(1L);
+
+        assertNotNull(commandById);
+        verify(recipeRepository, times(1)).findById(anyLong());
+        verify(recipeRepository, never()).findAll();
+    }
+
+    @Test
+    public void testDeleteById() {
+        //given
+        Long idToDelete = Long.valueOf(2L);
+
+        //when
+        recipeService.deleteById(idToDelete);
+
+        //no 'when', since method has void return type
+
+        //then
+        verify(recipeRepository, times(1)).deleteById(anyLong());
     }
 }

@@ -11,7 +11,8 @@
           type="text/css">
 </head>
 <body>
-
+<!--/*@thymesVar id="recipes" type="java.util.List"*/-->
+<!--/*@thymesVar id="recipe" type="mrw007.springframework.spring5recipeapp.models.Recipe"*/-->
 <div class="container-fluid" style="margin-top: 20px;">
     <div class="row">
         <div class="col-3"></div>
@@ -26,6 +27,7 @@
                                 <th>ID</th>
                                 <th>Description</th>
                                 <th>View</th>
+                                <th>Update</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -33,16 +35,19 @@
                                 <td th:text="${recipe.id}">123</td>
                                 <td th:text="${recipe.description}">Tasty Goodnees 1</td>
                                 <td><a th:href="#">View</a></td>
+                                <td><a th:href="#">Update</a></td>
                             </tr>
                             <tr th:remove="all">
                                 <td th:text="${recipe.id}">12333</td>
                                 <td th:text="${recipe.description}">Tasty Goodnees 2</td>
                                 <td><a th:href="#">View</a></td>
+                                <td><a th:href="#">Update</a></td>
                             </tr>
                             <tr th:each="recipe : ${recipes}">
                                 <td th:text="${recipe.id}">334</td>
                                 <td th:text="${recipe.description}">Tasty Goodnees 3</td>
-                                <td><a th:href="@{'/recipe/show/'+ ${recipe.id}}">View</a></td>
+                                <td><a th:href="@{'/recipe/'+ ${recipe.id} + '/show'}">View</a></td>
+                                <td><a th:href="@{'/recipe/'+ ${recipe.id} + '/update'}">Update</a></td>
                             </tr>
                             </tbody>
                         </table>

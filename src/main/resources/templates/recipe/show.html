@@ -80,7 +80,7 @@
                     </div>
                 </div>
             </div>
-            <div style="margin-top: 20px" class="card">
+            <div   class="card">
                 <div class="card-header">
                     <h4 class="card-title">Ingredients</h4>
                 </div>
@@ -90,7 +90,7 @@
                             <ul th:each="ingredient : ${recipe.ingredients}">
                                 <li th:remove="all">1 Cup of milk</li>
                                 <li th:remove="all">1 Teaspoon of chocolate</li>
-                                <li th:text="${ingredient.getAmount() + ' ' + ingredient.getUom().getDescription()+ ' - ' + ingredient.getDescription()}">1 Teaspoon
+                                <li th:text="${ingredient.getAmount() + ' ' + ingredient.uom.getDescription()+ ' - ' + ingredient.getDescription()}">1 Teaspoon
                                     of Sugar
                                 </li>
                             </ul>

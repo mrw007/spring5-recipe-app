@@ -2,6 +2,8 @@ package mrw007.springframework.spring5recipeapp.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import mrw007.springframework.spring5recipeapp.commands.IngredientCommand;
+import mrw007.springframework.spring5recipeapp.commands.RecipeCommand;
+import mrw007.springframework.spring5recipeapp.commands.UnitOfMeasureCommand;
 import mrw007.springframework.spring5recipeapp.services.IngredientService;
 import mrw007.springframework.spring5recipeapp.services.RecipeService;
 import mrw007.springframework.spring5recipeapp.services.UnitOfMeasureService;
@@ -41,6 +43,28 @@ public class IngredientController {
         model.addAttribute("ingredient",
                 ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id)));
         return "recipe/ingredient/show";
+    }
+
+    @GetMapping
+    @RequestMapping("/recipe/{recipeId}/ingredient/new")
+    public String newRecipeIngredient(@PathVariable String recipeId, Model model) {
+
+        //make sure we have a good id value
+        RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(recipeId));
+
+        //TODO raise exception if null
+
+        //need to return back parent id for hidden form property
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(Long.valueOf(recipeId));
+        model.addAttribute("ingredient", ingredientCommand);
+
+        //init uoms
+        ingredientCommand.setUom(new UnitOfMeasureCommand());
+
+        model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
+
+        return "recipe/ingredient/ingredientform";
     }
 
     @GetMapping

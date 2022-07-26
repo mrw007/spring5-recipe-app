@@ -19,7 +19,15 @@
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Ingredients</h4>
+                    <div class="row">
+                        <div class="col-md-11 ">
+                            <h4 class="card-title">Ingredients</h4>
+                        </div>
+                        <div class="col-md-1">
+                            <a class="btn btn-default" href="#"
+                               th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/new'}" role="button">New</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
 

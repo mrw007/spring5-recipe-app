@@ -81,7 +81,7 @@ class IngredientServiceImplTest {
     }
 
     @Test
-    void testSaveRecipeCommand() {
+    void testSaveRecipeIngredientCommand() {
         //given
         IngredientCommand command = new IngredientCommand();
         command.setId(3L);

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Image Upload Form</title>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Show Recipe</title>
+
+        <link th:remove="all" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+              rel="stylesheet"
+              integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+              crossorigin="anonymous">
+        <link th:href="@{/webjars/bootstrap/5.2.0/dist/css/bootstrap.min.css}" rel="stylesheet" crossorigin="anonymous"
+              type="text/css">
+    </head>
+</head>
+<body>
+<!--/*@thymesVar id="recipe" type="mrw007.springframework.spring5recipeapp.models.Recipe"*/-->
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-md-6 col-md-offset-3">
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Upload a new recipe image</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <form action="http:\\localhost" method="post" enctype="multipart/form-data"
+                                      th:action="@{'/recipe/' + ${recipe.getId()} + '/image'}">
+                                    <label class="control-label">Select File</label>
+                                    <input id="imagefile" name="imagefile" type="file" class="file">
+                                    <button style="margin-top: 20px" type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/webjars/jquery/3.6.0/dist/jquery.min.js"></script>
+<script th:src="@{/webjars/bootstrap/5.2.0/dist/js/bootstrap.bundle.min.js}"></script>
+<script th:remove="all"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -16,7 +16,6 @@ public class RecipeController {
     public static final String VIEWS_SHOW_RECIPE = "recipe/show";
     public static final String VIEWS_RECIPE_FORM = "recipe/recipeform";
     public static final String VIEWS_NOT_FOUND = "404error";
-    public static final String VIEWS_BAD_REQUEST = "400error";
     private final RecipeService recipeService;
 
     public RecipeController(RecipeService recipeService) {
@@ -62,19 +61,6 @@ public class RecipeController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(VIEWS_NOT_FOUND);
-        modelAndView.addObject("exception", e);
-
-        return modelAndView;
-    }
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(NumberFormatException.class)
-    public ModelAndView handleNumberFormatException(Exception e) {
-        log.error("handling Number Format exception");
-        log.error(e.getMessage());
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName(VIEWS_BAD_REQUEST);
         modelAndView.addObject("exception", e);
 
         return modelAndView;

@@ -27,6 +27,7 @@ class RecipeControllerTest {
     public static final String VIEWS_RECIPE_SHOW = "recipe/show";
     public static final String VIEWS_RECIPE_FORM = "recipe/recipeform";
     public static final String VIEWS_NOT_FOUND = "404error";
+    public static final String VIEWS_BAD_REQUEST = "400error";
     @Mock
     RecipeService recipeService;
 
@@ -61,6 +62,13 @@ class RecipeControllerTest {
         mockMvc.perform(get("/recipe/1/show"))
                 .andExpect(status().isNotFound())
                 .andExpect(view().name(VIEWS_NOT_FOUND));
+    }
+
+    @Test
+    void testGetRecipeInvalidId() throws Exception {
+        mockMvc.perform(get("/recipe/asdf/show"))
+                .andExpect(status().isBadRequest())
+                .andExpect(view().name(VIEWS_BAD_REQUEST));
     }
 
     @Test

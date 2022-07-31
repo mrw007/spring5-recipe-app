@@ -3,8 +3,10 @@ package mrw007.springframework.spring5recipeapp.services;
 import mrw007.springframework.spring5recipeapp.commands.RecipeCommand;
 import mrw007.springframework.spring5recipeapp.converters.RecipeCommandToRecipe;
 import mrw007.springframework.spring5recipeapp.converters.RecipeToRecipeCommand;
+import mrw007.springframework.spring5recipeapp.exceptions.NotFoundException;
 import mrw007.springframework.spring5recipeapp.models.Recipe;
 import mrw007.springframework.spring5recipeapp.repositories.RecipeRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +18,8 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -50,7 +53,7 @@ class RecipeServiceImplTest {
     }
 
     @Test
-    public void getRecipeByIdTest() throws Exception {
+    public void getRecipeByIdTest() {
         Recipe recipe = new Recipe();
         recipe.setId(1L);
 
@@ -61,6 +64,17 @@ class RecipeServiceImplTest {
         assertNotNull(recipeReturned);
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, never()).findAll();
+    }
+
+    @Test
+    public void getRecipeByIdTestNotFound() {
+        when(recipeRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        // Should go Boom
+        Assertions.assertThrows(NotFoundException.class, () -> {
+            Recipe recipeReturned = recipeService.findById(1L);
+        });
+
     }
 
     @Test

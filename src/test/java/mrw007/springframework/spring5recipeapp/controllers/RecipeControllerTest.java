@@ -1,6 +1,7 @@
 package mrw007.springframework.spring5recipeapp.controllers;
 
 import mrw007.springframework.spring5recipeapp.commands.RecipeCommand;
+import mrw007.springframework.spring5recipeapp.exceptions.NotFoundException;
 import mrw007.springframework.spring5recipeapp.models.Recipe;
 import mrw007.springframework.spring5recipeapp.services.RecipeService;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +24,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(MockitoExtension.class)
 class RecipeControllerTest {
 
+    public static final String VIEWS_RECIPE_SHOW = "recipe/show";
+    public static final String VIEWS_RECIPE_FORM = "recipe/recipeform";
     @Mock
     RecipeService recipeService;
 
@@ -39,25 +42,31 @@ class RecipeControllerTest {
 
     @Test
     public void testGetRecipe() throws Exception {
-
         Recipe recipe = new Recipe();
         recipe.setId(1L);
 
-
         when(recipeService.findById(anyLong())).thenReturn(recipe);
 
-        mockMvc.perform(get("/recipe/1/show")).andExpect(status().isOk())
-                .andExpect(view().name("recipe/show"))
+        mockMvc.perform(get("/recipe/1/show"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(VIEWS_RECIPE_SHOW))
                 .andExpect(model().attributeExists("recipe"));
     }
 
     @Test
-    public void testGetNewRecipeForm() throws Exception {
-        RecipeCommand recipeCommand = new RecipeCommand();
-        mockMvc.perform(get("/recipe/new")).andExpect(status().isOk())
-                .andExpect(view().name("recipe/recipeform"))
-                .andExpect(model().attributeExists("recipe"));
+    void testGetRecipeNotFound() throws Exception {
+        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
 
+        mockMvc.perform(get("/recipe/1/show"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void testGetNewRecipeForm() throws Exception {
+        mockMvc.perform(get("/recipe/new"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(VIEWS_RECIPE_FORM))
+                .andExpect(model().attributeExists("recipe"));
     }
 
     @Test
@@ -85,7 +94,7 @@ class RecipeControllerTest {
 
         mockMvc.perform(get("/recipe/2/update"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("recipe/recipeform"))
+                .andExpect(view().name(VIEWS_RECIPE_FORM))
                 .andExpect(model().attributeExists("recipe"));
     }
 

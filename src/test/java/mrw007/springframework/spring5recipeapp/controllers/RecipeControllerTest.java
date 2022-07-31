@@ -26,6 +26,7 @@ class RecipeControllerTest {
 
     public static final String VIEWS_RECIPE_SHOW = "recipe/show";
     public static final String VIEWS_RECIPE_FORM = "recipe/recipeform";
+    public static final String VIEWS_NOT_FOUND = "404error";
     @Mock
     RecipeService recipeService;
 
@@ -58,7 +59,8 @@ class RecipeControllerTest {
         when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
 
         mockMvc.perform(get("/recipe/1/show"))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isNotFound())
+                .andExpect(view().name(VIEWS_NOT_FOUND));
     }
 
     @Test

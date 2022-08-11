@@ -31,8 +31,8 @@ jobs: # a collection of steps
           # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: target/surefire-reports
 
-      - codecov/upload:
-          file: "./site/jacoco/jacoco.xml" 
+      - run: bash <(curl -s https://codecov.io/bash)
+      
       - store_artifacts: # store the uberjar as an artifact
           # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
           path: target/demo-java-spring-0.0.1-SNAPSHOT.jar
@@ -40,5 +40,3 @@ jobs: # a collection of steps
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
-orbs:
-  codecov: codecov/codecov@3.2.3

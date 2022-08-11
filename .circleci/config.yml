@@ -31,9 +31,7 @@ jobs: # a collection of steps
           # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: target/surefire-reports
 
-      - codecov/upload:
-          token: a34da934-8e5a-4607-9302-df27a2aea440 
-
+      - codecov/upload
       - store_artifacts: # store the uberjar as an artifact
           # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
           path: target/demo-java-spring-0.0.1-SNAPSHOT.jar

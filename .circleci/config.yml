@@ -25,15 +25,14 @@ jobs: # a collection of steps
             - ~/.m2
           key: spring5-recipe-app-{{ checksum "pom.xml" }}
 
-      - run: mvn verify cobertura:cobertura # run the actual tests
+      - run: mvn verify # run the actual tests
 
       - store_test_results: # uploads the test metadata from the `target/surefire-reports` directory so that it can show up in the CircleCI dashboard.
           # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: target/surefire-reports
 
       - codecov/upload:
-          token: a34da934-8e5a-4607-9302-df27a2aea440 
-
+          token: a34da934-8e5a-4607-9302-df27a2aea440
       - store_artifacts: # store the uberjar as an artifact
           # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
           path: target/demo-java-spring-0.0.1-SNAPSHOT.jar

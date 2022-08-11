@@ -7,6 +7,7 @@ import mrw007.springframework.spring5recipeapp.repositories.CategoryRepository;
 import mrw007.springframework.spring5recipeapp.repositories.RecipeRepository;
 import mrw007.springframework.spring5recipeapp.repositories.UnitOfMeasureRepository;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Controller;
 
@@ -18,6 +19,7 @@ import java.util.Optional;
 
 @Slf4j
 @Controller
+@Profile("default")
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
     private final CategoryRepository categoryRepository;
     private final RecipeRepository recipeRepository;
